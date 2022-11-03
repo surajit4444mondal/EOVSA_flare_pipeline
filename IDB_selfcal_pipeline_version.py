@@ -291,19 +291,29 @@ def get_selfcal_times(msname,nspw, starttime):
     
     ms.open(msname)
     for sp in range(minimum_spw,maximum_spw+1):
+        
         ms.selectinit(datadescid=0,reset=True)
         ms.selectinit(datadescid=sp)
-        ms.select({'Antenna1':[0,1]})
         data=ms.getdata(['amplitude','axis_info'],ifraxis=True)
+        flag=ms.getdata('flag',ifraxis=True)['flag'][0,:,:,:]
         startmjd=data['axis_info']['time_axis']['MJDseconds'][0]
         endmjd=data['axis_info']['time_axis']['MJDseconds'][-1]
-        power=data['amplitude'][0,3,0,:]
+        tot_data=data['amplitude'][0,:,:,:]
+        pos=np.where(flag==True)
+        tot_data[pos]=np.nan
+        median=np.nanmedian(tot_data,axis=2) #### first taking median over time
+        median=np.expand_dims(median,axis=2)
+        med_subtracted_power=(tot_data-median)/median
+        power=np.nanmedian(med_subtracted_power,axis=(0,1))
+        #power=data['amplitude'][0,3,0,:]
         #print (data['axis_info']['time_axis'].keys())
-        print(sp, np.shape(data['amplitude'])[1])
-        median_power=np.median(power)
-        smoothed=np.convolve(power, np.ones(10),mode='same')*0.1
-        peak_pow=np.max(smoothed)
-        mad=np.median(abs(power-median_power))
+        median_power=np.nanmedian(power)
+        smoothed=np.convolve(power, np.ones(5),mode='same')*1./5
+        peak_pow=np.nanmax(smoothed)
+        mad=np.nanmedian(abs(power-median_power))
+        pos=np.where(np.isnan(smoothed)==True)
+        smoothed[pos]=0.0
+        power[pos]=0.0
         thres=5.0
         y=(smoothed-median_power)/mad
         pos=np.argmax(y)
@@ -408,8 +418,9 @@ def get_selfcal_times(msname,nspw, starttime):
         time_diff=end_time[-1]-startmjd
         endstr=(start+dt.timedelta(seconds=time_diff)).strftime('%Y/%m/%d/%H:%M:%S')
         times.append(startstr+'~'+endstr)
+        print (sp,times[-1])
         end_datetime_obj.append(start+dt.timedelta(seconds=time_diff))
-        
+        del tot_data,median, med_subtracted_power,power,smoothed
     ms.close()
     flare_peak_time=start+dt.timedelta(seconds=peak_time-startmjd)
     peak_time_mjd=peak_time
@@ -1293,7 +1304,6 @@ if cal_disk:
 
 
 #============ Starting the selfcal loop ================
-
 if doslfcal:
 	print ("Determining the selfcal timeranges")
 	times,flares,start_time_obj, end_time_obj,peak_time_mjd,startmjd,endmjd,flare_peak_time=get_selfcal_times(ms_in,maximum_spw+1,starttime)

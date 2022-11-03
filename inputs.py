@@ -4,13 +4,13 @@
 cal_disk = 0  ## apply calibration tables from full disc imaging
 identify_data_gap=1  ### identify data gaps
 doslfcal = 1  # main cycle of doing selfcalibration
-doapply = 0  # apply the results
-doclean=0  ### produce final image
-selfcal_spws=[24]  ### selfcal \
+doapply = 1 # apply the results
+doclean=1  ### produce final image
+selfcal_spws=[3,8,15,24,35,42]  ### selfcal \
                         ### and final imaging would be only in these spws 
 
 ##===================== final imaging parameters ===========================
-total_duration=1200 ### seconds to image; time will be centred on detected flare peak
+total_duration=240 ### seconds to image; time will be centred on detected flare peak
 final_image_cadence=10 ### seconds
 final_image_int=10 ### integration time of final images
 min_restoring_beam=6 ## arcsec
@@ -22,7 +22,7 @@ final_imsize=512 ### pixel
 ### remember / is necessary in all the folder names
 
 workpath = '/home/surajit/Downloads/flare_pipeline_results/20220930/' ## / is needed at the end of all paths
-slfcaldir = workpath+ 'slfcal_v4/'  # place to put all selfcalibration products
+slfcaldir = workpath+ 'slfcal_v5/'  # place to put all selfcalibration products
 imagedir = slfcaldir + 'images/'  # place to put all selfcalibration images
 caltbdir = slfcaldir+'caltables/'  # place to put calibration tables
 
@@ -46,6 +46,6 @@ maxiter=10  ### maximum selfcal iterations
 uvlim=25
 avg_spw_max=5
 flag_antennas = '' ###anything except 13~15. Those antennas are always flagged. 
-phasecenter='J2000 12h27m12.002s -02d51m07.081s'
+phasecenter=''
 
 # ========== end of input parameters =================
