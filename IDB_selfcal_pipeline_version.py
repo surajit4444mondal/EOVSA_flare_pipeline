@@ -1272,21 +1272,23 @@ except OSError:
 	pass
 
 
-#outpath = 'msdata/'
-#os.chdir(outpath)
-#msfiles=glob.glob("*.ms")
-#for file1 in msfiles:
- #   if '_' in file1:
-  #     concatvis=file1
+if len(rawcal_ms)==0:
+	outpath = 'msdata/'
+	os.chdir(outpath)
+	msfiles=glob.glob("*.ms")
+	for file1 in msfiles:
+		if '_' in file1:
+			rawcal_ms=file1
 
-#print (concatvis)
-
-rawcal_ms='IDB20220930_1600-1700.ms'
+	if len(rawcal_ms)!=0:
+		os.system("cp -r "+rawcal_ms+" "+workpath)
+	else:
+		raise IOError("MS not found. Consider supplying it and rerunning")
+else:
+	if os.path.isdir(workpath+rawcal_ms)==False:
+		raise IOError("MS name supplied, but not found")
+	
 os.chdir(workpath)
-if os.path.isdir(rawcal_ms)==False:
-	print ("Splitting here")
-	split(vis=outpath + concatvis, outputvis=rawcal_ms, correlation='XX,YY', datacolumn='data',
-     antenna='')
 
 # ============ Split a short time for self-calibration ===========
 print ("Starting the self-calibration process")
@@ -1583,3 +1585,4 @@ if doclean:
 	final_clean_time=timeit.default_timer()
 	f.write("Final clean done in seconds:"+str(final_clean_time-time1))
 f.close()
+

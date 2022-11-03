@@ -25,6 +25,7 @@ workpath = '/home/surajit/Downloads/flare_pipeline_results/20220930/' ## / is ne
 slfcaldir = workpath+ 'slfcal_v5/'  # place to put all selfcalibration products
 imagedir = slfcaldir + 'images/'  # place to put all selfcalibration images
 caltbdir = slfcaldir+'caltables/'  # place to put calibration tables
+rawcal_ms='IDB20220930_1600-1700.ms'
 
 # ============= time to image =================
 starttime='2022-09-30 16:00:00'   ### has strict formating rules
