@@ -37,6 +37,7 @@ endtime='2022-09-30 17:00:00'
 
 refantenna = '0'
 calc_cell=True ### If set to False use the value in beam given below
+cell=[10]  ### size needs to be same as the number of spws
 calc_imsize=True   ### is False uses the value given below
 
 

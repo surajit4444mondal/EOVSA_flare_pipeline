@@ -23,9 +23,10 @@ Next please come out of CASA. The next code is run in a normal python environmen
 
 Advanced parameters:
 
-identify_data_gap: Often EOVSA data shows data gaps, and setting this to 1, identifies those gaps and flags them
-doslfcal:          1 means slfcal will be done. 0 means otherwise
-doapply:           1 means will do the following action. Apply the caltables, and write the self-calibrated 		    dataset. Note that the MS, if exists, will not be overwritten.
-doclean:            1 means will produce the final cleaned images using the self-calibrated dataset.
+1. identify_data_gap: Often EOVSA data shows data gaps, and setting this to 1, identifies those gaps and flags them
+2. doslfcal:          1 means slfcal will be done. 0 means otherwise
+3. doapply:           1 means will do the following action. Apply the caltables, and write the self-calibrated dataset. Note that the MS, if exists, will not be overwritten.
+4. doclean:            1 means will produce the final cleaned images using the self-calibrated dataset.
+5. cell:               Setting calc_cell  to False, will mean that you want to provide cell yourself. Note that you need to give cell for each spw in the MS in the form of a list.
 
 Sometimes, we need to run the selfcal code in a different machine than where the gen_IDB_MS was run. If you are in a similar situation, you can copy just the MS to the new machine. Then supply the name of the MS in rawcal_MS. Please ensure that it is accessible from workpath .
