@@ -1296,7 +1296,7 @@ f=open("selfcal.log","a")
 ms_in = rawcal_ms
 if cal_disk:
 	ms_caldisk = concatvis[:-3]+'_fullday_calibrated.ms'
-	slftbs = glob.glob('fullday_cals/*')
+	slftbs = glob.glob(fullday_cal_loc+'*')
 	if os.path.exists(ms_caldisk)==False:
 		applycal(vis=ms_in, gaintable=slftbs, selectdata=True, \
 	     		interp='linear', flagbackup=False, applymode='calonly', calwt=False)
@@ -1522,14 +1522,10 @@ if doapply==1:
 	print ("Applying caltables")
 	if os.path.isdir(final_ms)==False:
             for s in selfcal_spws:
-		#if s not in [3,6,12,24,27]:
-		 #   continue
                 caltable=caltbdir+'final_cal_spw_'+str(s).zfill(2)+'.gcal'
                 if os.path.isdir(caltable)==False:
                     continue
                 applycal(vis=ms_in,gaintable=caltable,spw=str(s),applymode='calonly',interp='nearest')
-	#if os.path.isdir(final_ms)==True:
-	#	os.system("rm -rf "+final_ms)
             split(vis=ms_in,outputvis=final_ms, correlation='XX',datacolumn='corrected')
             f.write("Calibrated MS split\n")
             time1=timeit.default_timer()

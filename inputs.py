@@ -2,6 +2,7 @@
 
 # =========== task handlers =============
 cal_disk = 0  ## apply calibration tables from full disc imaging
+fullday_cal_loc=''## Location of the full day calibration tables
 identify_data_gap=1  ### identify data gaps
 doslfcal = 1  # main cycle of doing selfcalibration
 doapply = 1 # apply the results
@@ -36,10 +37,8 @@ endtime='2022-09-30 17:00:00'
 
 refantenna = '0'
 calc_cell=True ### If set to False use the value in beam given below
-cell=[10]  ### size needs to be same as the number of spw listed in selfcal_spw
 calc_imsize=True   ### is False uses the value given below
-imsize=42  ### in solar radius, the full image size at the first frequency. Other frequencies, the value will be scaled.
-           ### The default value of 42 solar radius is for ~1 GHz
+
 
 max_frac_freq_avg=0.5  ### I will average at most this much fractional bandwidth
 
