@@ -1576,7 +1576,7 @@ if doclean:
                     ncpu=1,imsize=[final_imsize],cell=cell_size1, restoringbeam=[beam_1GHz],\
                     robust=0.5,opencontour=opencontour,clevels=clevels,plotaia=plotaia,\
                     aiawave=aiawave,mkmovie=mkmovie,twidth=final_image_int,docompress=docompress,\
-                    stokes=stokes,movieformat=movieformat,uvrange='',ds_normalised=True, dmax=2,\
+                    stokes=stokes,movieformat=movieformat,uvrange='',\#ds_normalised=True, dmax=2,\
                     niter=300,overwrite=overwrite,xycen=xycen,fov=[256,256])
 	final_clean_time=timeit.default_timer()
 	f.write("Final clean done in seconds:"+str(final_clean_time-time1))
