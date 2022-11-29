@@ -5,7 +5,7 @@ The essential parameters:
 1. workpath: The directory where all the work will be done. Please leave rawcal_ms='' . Usecases when it should 
 		not be empty is given later. NOTE THAT ALL PATHS PROVIDED IN INPUTS SHOULD END WITH /
 		
-2. rawcal_ms: ''
+2. rawcal_ms: ''   ### FILL THIS IF YOU ARE CHANGING MACHINES IN BETWEEN CODES. DESCRIBED BELOW.
 3. starttime: Provide the starttime of the required data
 4. endtime:   Provide the endtime of the required data.
 
@@ -29,4 +29,13 @@ Advanced parameters:
 4. doclean:            1 means will produce the final cleaned images using the self-calibrated dataset.
 5. cell:               Setting calc_cell  to False, will mean that you want to provide cell yourself. Note that you need to give cell for each spw in the MS in the form of a list.
 
-Sometimes, we need to run the selfcal code in a different machine than where the gen_IDB_MS was run. If you are in a similar situation, you can copy just the MS to the new machine. Then supply the name of the MS in rawcal_MS. Please ensure that it is accessible from workpath .
+
+THINGS to NOTE:
+
+1. Sometimes, we need to run the selfcal code in a different machine than where the gen_IDB_MS was run. If you are in a similar situation, you can copy just the MS to the new machine. Then supply the name of the MS in rawcal_MS. Please ensure that it is accessible from workpath .
+
+2. Always ensure that you have a working installation of SUNCASA
+
+3. Please ensure that EOVSA is added to the observatories list of CASA. If not, please consider adding it. As a hack, you can run listobs in the pipeline machine and write the ouput in a file. If the rawcal_ms="temp.ms", then the output of listobs should be dumped into "temp.listobs". Copy the output of listobs to the workpath where you want to run "IDB_selfcal_pipeline_version.py" .
+
+
