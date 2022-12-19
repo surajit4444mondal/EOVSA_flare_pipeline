@@ -5,7 +5,7 @@ import os
 os.chdir(workpath)
 workdir = os.getcwd() + '/'  # main working directory. Using current directory in this example
 
-dirs_ = [workdir, slfcaldir, imagedir, maskdir, imagedir_slfcaled, caltbdir]
+dirs_ = [workdir, slfcaldir, imagedir, caltbdir]
 for d in dirs_:
     if not os.path.exists(d):
         os.makedirs(d)
